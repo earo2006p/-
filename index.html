@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Σύνοδος</title>
+
+<style>
+body{
+  font-family: cursive;
+  background:url("background.jpg") no-repeat center center fixed;
+  background-size:cover;
+  direction:rtl;
+  text-align:center;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.5);
+  z-index:-1;
+}
+
+h1{color:#000000}
+
+.tab-button{
+  padding:10px 20px;
+  margin:5px;
+  font-size:30px;
+  background:#9E180E;
+  color:white;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.tab-button:hover{background:#000000}
+
+.questions{display:none}
+
+.question{
+  background:#9e180e;
+  width:80%;
+  margin:20px auto;
+  padding:30px;
+  border-radius:30px;
+  display:none;
+  font-size:40px;
+}
+
+.question.active{display:block}
+
+.answers button{
+  padding:10px;
+  margin:20px;
+  border:none;
+  border-radius:15px;
+  background:#ffffff;
+  cursor:pointer;
+  font-size:25px;
+}
+
+.score-box{
+  background:babe blue;
+  width:80%;
+  margin:auto;
+  padding:15px;
+  border-radius:15px;
+  font-size:30px;
+}
+</style>
+</head>
+
+<body>
+
+<h1> Σύνοδος</h1>
+
+<div class="score-box">
+  <input id="team1Name" placeholder="اسم الفريق الأول">
+  <input id="team2Name" placeholder="اسم الفريق الثاني">
+  <br><br>
+  <button class="tab-button" onclick="setTeams()">ابدأ المسابقة</button>
+  <h3 id="turnText"></h3>
+  <div id="scoreBoard"></div>
+</div>
+
+<br>
+
+<div>
+  <button class="tab-button" onclick="showTab('easter')">نيقيه</button>
+  <button class="tab-button" onclick="showTab('ascension')">افسس</button>
+  <button class="tab-button" onclick="showTab('temple')">قسطنطينيه</button>
+</div>
+
+
+
+  <!-- نيقيه -->
+  <div id="easter" class="questions">
+    <br>
+    <div class="question active">
+      اين عقد مجمع نيقيه؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">روما</button>
+        <button onclick="checkAnswer(true, this)">نيقيه</button>
+        <button onclick="checkAnswer(false, this)">الاسكندريه</button>
+      </div>
+    </div>
+    <div class="question">
+      في اي سنه عقد مجمع نيقيه؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">325م</button>
+        <button onclick="checkAnswer(false, this)">381م</button>
+        <button onclick="checkAnswer(false, this)">352م</button>
+      </div>
+    </div>
+    <div class="question">
+      من الامبراطور الذي عقد في عهده مجمع نيقيه؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">نيرون</button>
+        <button onclick="checkAnswer(true, this)">قسطنطين الكبير</button>
+        <button onclick="checkAnswer(false, this)">دقلديانوس</button>
+      </div>
+    </div>
+    <div class="question">
+      كم عدد الاباء المجتمعين في مجمع نيقيه؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">318</button>
+        <button onclick="checkAnswer(false, this)">150</button>
+        <button onclick="checkAnswer(false, this)">300</button>
+      </div>
+    </div>
+    <div class="question">
+      من المهرطق الذي حوكم في مجمع نيقيه؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">نسطور</button>
+        <button onclick="checkAnswer(true, this)">اريوس</button>
+        <button onclick="checkAnswer(false, this)">مقدونيوس</button>
+      </div>
+    </div>
+    <div class="question">
+      من هو اريوس؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">اسقف </button>
+        <button onclick="checkAnswer(true, this)">كاهن </button>
+        <button onclick="checkAnswer(false, this)">امبراطور</button>
+      </div>
+    </div>
+    <div class="question">
+      ماذا قال اريوس عن السيد المسيح؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">مخلوق و اقل من الاب</button>
+        <button onclick="checkAnswer(false, this)">اله كامل</button>
+        <button onclick="checkAnswer(false, this)">ملاك</button>
+      </div>
+    </div>
+    <div class="question">
+      من اشهر قديسي مجمع نيقيه؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">القديس اثناسيوس الرسولي</button>
+        <button onclick="checkAnswer(false, this)">القديس اغسطينوس</button>
+        <button onclick="checkAnswer(false, this)">مار مرقس</button>
+      </div>
+    </div>
+    <div class="question">
+      ما معني كلمه نيقيه؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">اسم قديس</button>
+        <button onclick="checkAnswer(true, this)">اسم مدينه</button>
+        <button onclick="checkAnswer(false, this)">اسم بدعه</button>
+      </div>
+    </div>
+    <div class="question">
+      جمله"مساوي للاب في الجوهر "تعني؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">مثل الملائكه</button>
+        <button onclick="checkAnswer(true, this)">هو والاب واحد</button>
+        <button onclick="checkAnswer(false, this)">اقل من الاب</button>
+      </div>
+    </div>
+    <div class="question">
+      مجمع نيقيه هو ؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">اول مجمع مسكوني</button>
+        <button onclick="checkAnswer(false, this)">ثاني مجمع مسكوني</button>
+        <button onclick="checkAnswer(false, this)">اخر مجمع مسكوني</button>
+      </div>
+    </div>
+    <div class="question">
+      صح او خطا:اريوس كان بيقول ان المسيح ازلي مثل الاب؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">صح</button>
+        <button onclick="checkAnswer(true, this)">خطا</button>
+      </div>
+    </div>
+    <div class="question">
+      صح او خطا:الامبراطور قسطنطين كان مسيحي وقت المجمع؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">صح</button>
+        <button onclick="checkAnswer(false, this)">خطا</button>
+      </div>
+    </div>
+    <div class="question">
+      صج او خطا:عدد الاباء الذين حضروا المجمع 318؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">صح</button>
+        <button onclick="checkAnswer(false, this)">خطا</button>
+      </div>
+    </div>
+    <div class="question">
+      مجمع نيقيه كتب قانون الايمان كاملا؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">خطا </button>
+        <button onclick="checkAnswer(false, this)">صح </button>
+      </div>
+    </div>
+    <div class="question">
+      كم يوم استمر مجمع نيقيا تقريبا؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">حوالي شهرين</button>
+        <button onclick="checkAnswer(false, this)">يومين</button>
+        <button onclick="checkAnswer(false, this)">30يوم</button>
+      </div>
+    </div>
+    <div class="question">
+      اي جمله توضح تعليم مجمع نيقيه؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">اله حق من اله حق</button>
+        <button onclick="checkAnswer(false, this)">المعلم الصالح</button>
+        <button onclick="checkAnswer(false, this)">الراعي الصالح</button>
+      </div>
+    </div>
+    <div class="question">
+      القديس اثاناسيوس يلقب ب ؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">حامي التعليم</button>
+        <button onclick="checkAnswer(true, this)">حامي الايمان</button>
+        <button onclick="checkAnswer(false, this)">الراعي الصالح</button>
+      </div>
+    </div>
+    <div class="question">
+      كان القديس اثاناسيوس وقت المجمع؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">اسقف</button>
+        <button onclick="checkAnswer(true, this)">شماس</button>
+        <button onclick="checkAnswer(false, this)">بطريرك</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- افسس -->
+  <div id="ascension" class="questions">
+    <br>
+    <div class="question active">
+      مجمع افسس كان سنه كام؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">325م</button>
+        <button onclick="checkAnswer(true, this)">431م</button>
+        <button onclick="checkAnswer(false, this)">553م</button>
+      </div>
+    </div>
+    <div class="question">
+      ايه الهرطقه اللي ظهرت في وقت مجمع افسس؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">ان المسيح مش اله</button>
+        <button onclick="checkAnswer(false, this)">ان الروح القدس مش موجود</button>
+        <button onclick="checkAnswer(true, this)">ان العذراء مريم مش والده الاله</button>
+      </div>
+    </div>
+    <div class="question">
+      مين اللي دافع عن لقب والده الاله في المجمع؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">القذيس اثاناسيوس</button>
+        <button onclick="checkAnswer(true, this)">الديس كيرلس الكبير</button>
+        <button onclick="checkAnswer(false, this)">القديس اغسطينوس</button>
+      </div>
+    </div>
+    <div class="question">
+      مجمع أفسس هو المجمع المسكوني الثالث؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">صح</button>
+        <button onclick="checkAnswer(false, this)">خطا</button>
+      </div>
+    </div>
+    <div class="question">
+      انعقد مجمع أفسس سنة 431م؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">صح</button>
+        <button onclick="checkAnswer(false, this)">خطا</button>
+
+      </div>
+    </div>
+    <div class="question">
+      انعقد مجمع أفسس في مدينة نيقية ؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">خطا</button>
+        <button onclick="checkAnswer(false, this)">صح</button>
+      </div>
+    </div>
+    <div class="question">
+      ترأس مجمع أفسس البابا كيرلس الكبير.؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">خطا</button>
+        <button onclick="checkAnswer(true, this)">صح</button>
+      </div>
+    </div>
+    <div class="question">
+      انعقد المجمع بسبب بدعة نسطور؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">صح</button>
+        <button onclick="checkAnswer(false, this)">خطا</button>
+      </div>
+    </div>
+    <div class="question">
+      ما موقف المجمع من نسطور؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">كافاه</button>
+        <button onclick="checkAnswer(true, this)">حرمه</button>
+        <button onclick="checkAnswer(false, this)">جعله بطريركا</button>
+      </div>
+    </div>
+    <div class="question">
+      الكنيسة القبطية الأرثوذكسية تقبل قرارات مجمع أفسس.؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">خطا</button>
+        <button onclick="checkAnswer(true, this)">صح</button>
+      </div>
+    </div>
+    <div class="question">
+      نسطور قال إن العذراء ولدت إنسانًا فقط.؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">خطا</button>
+        <button onclick="checkAnswer(true, this)">صح</button>
+      </div>
+    </div>
+    <div class="question">
+      مجمع أفسس قبل تعليم نسطور؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">خطا</button>
+        <button onclick="checkAnswer(false, this)">صح</button>
+      </div>
+    </div>
+    <div class="question">
+      الإمبراطور الذي عُقد المجمع في عهده هو ثيؤدوسيوس الثاني.؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">صح</button>
+        <button onclick="checkAnswer(false, this)">خطا</button>
+
+      </div>
+    </div>
+    <div class="question">
+      العذراء مريم تُدعى والدة الإله لأن المولود منها هو الله المتجسد.؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">صح</button>
+        <button onclick="checkAnswer(false, this)">خطا</button>
+      </div>
+    </div>
+    <div class="question">
+      الكنيسة تؤمن أن المسيح شخصين منفصلين.؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">صح</button>
+        <button onclick="checkAnswer(true, this)">خطا</button>
+      </div>
+    </div>
+    <div class="question">
+      نسطور كان بطريرك الإسكندرية.؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">خطا</button>
+        <button onclick="checkAnswer(false, this)">صح</button>
+      </div>
+    </div>
+    <div class="question">
+      مين كان رئيس مجمع افسس؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">القديس كيرلس الكبير</button>
+        <button onclick="checkAnswer(false, this)">القديس بطرس</button>
+        <button onclick="checkAnswer(false, this)">القديس بولس</button>
+      </div>
+    </div>
+    <div class="question">
+      ايه اللقب اللي اطلقته مجمع افسس علي العذراء مريم؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">ام المسيح</button>
+        <button onclick="checkAnswer(true, this)">والده الاله</button>
+        <button onclick="checkAnswer(false, this)">خادمه الرب</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- القسطنطينيه -->
+  <div id="temple" class="questions">
+    <br>
+    <div class="question active">
+      انعقد مجمع القسطنطينية سنة 381م ؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">صح</button>
+        <button onclick="checkAnswer(false, this)">خطا</button>
+      </div>
+    </div>
+    <div class="question">
+      مجمع القسطنطينية هو المجمع المسكوني الأول ؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">خطا</button>
+        <button onclick="checkAnswer(false, this)">صح</button>
+      </div>
+    </div>
+    <div class="question">
+      انعقد المجمع في مدينة القسطنطينية ؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">خطا</button>
+        <button onclick="checkAnswer(true, this)">صح</button>
+      </div>
+    </div>
+    <div class="question">
+      دعا الإمبراطور ثيودوسيوس الكبير لعقد المجمع ؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">خطا</button>
+        <button onclick="checkAnswer(true, this)">صح</button>
+      </div>
+    </div>
+    <div class="question">
+      كان هدف المجمع الدفاع عن لاهوت الابن فقط ؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">خطا</button>
+        <button onclick="checkAnswer(false, this)">صح</button>
+      </div>
+    </div>
+    <div class="question">
+      أنكر مقدونيوس ألوهية الروح القدس ؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">صح</button>
+        <button onclick="checkAnswer(false, this)">خطا</button>
+      </div>
+    </div>
+    <div class="question">
+      أُضيفت عبارة «نعم نؤمن بالروح القدس» في هذا المجمع ؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">خطا</button>
+        <button onclick="checkAnswer(true, this)">صح</button>
+      </div>
+    </div>
+    <div class="question">
+      حضر المجمع حوالي 150 أسقفًا أرثوذكسيًا ؟
+      <div class="answers">
+        <button onclick="checkAnswer(false, this)">خطا</button>
+        <button onclick="checkAnswer(true, this)">صح</button>
+      </div>
+    </div>
+    <div class="question">
+      لم يهتم المجمع بقانون الإيمان ؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">خطا</button>
+        <button onclick="checkAnswer(false, this)">صح</button>
+      </div>
+    </div>
+    <div class="question">
+      القديس غريغوريوس النزينزي كان له دور مهم في المجمع ؟
+      <div class="answers">
+        <button onclick="checkAnswer(true, this)">صح</button>
+        <button onclick="checkAnswer(false, this)">خطا</button>
+      </div>
+    </div>
+  </div>
+
+
+<br>
+<button class="tab-button" onclick="showWinner()">🏆 مين كسب؟</button>
+
+<audio id="correctSound" src="correct.mp3"></audio>
+<audio id="wrongSound" src="wrong.mp3"></audio>
+
+<script>
+let team1="", team2="";
+let score1=0, score2=0;
+let currentTeam=1;
+
+/* 🔹 مكان اللاعب على السلم والتعبان */
+let playerPosition = 0;
+
+function setTeams(){
+  team1 = team1Name.value || "الفريق الأول";
+  team2 = team2Name.value || "الفريق الثاني";
+  updateScore();
+  updateTurn();
+}
+
+function updateScore(){
+  scoreBoard.innerHTML =
+  `${team1}: ${score1} نقطة<br>${team2}: ${score2} نقطة`;
+}
+
+function updateTurn(){
+  turnText.innerHTML =
+  "🎯 الدور على: " + (currentTeam===1?team1:team2);
+}
+
+function showTab(id){
+  document.querySelectorAll(".questions").forEach(q=>q.style.display="none");
+  document.getElementById(id).style.display="block";
+}
+
+/* 🔹 دالة الحركة */
+function movePlayer(steps){
+  playerPosition += steps;
+  if(playerPosition < 0) playerPosition = 0;
+
+  if(steps > 0){
+    alert("🎲 اتحرك " + steps + " خطوة");
+  }else{
+    alert("🐍 ارجع " + Math.abs(steps) + " خطوة");
+  }
+
+  console.log("مكان اللاعب الحالي:", playerPosition);
+}
+
+function checkAnswer(correct,btn){
+
+  let buttons = btn.parentElement.querySelectorAll("button");
+  buttons.forEach(b=>b.disabled=true);
+
+  let steps;
+
+  if(correct){
+    document.getElementById("correctSound").play();
+    btn.style.background="#000000";
+    currentTeam===1?score1++:score2++;
+    steps = Math.floor(Math.random() * 3) + 1; // 1 → 3
+  }else{
+    document.getElementById("wrongSound").play();
+    btn.style.background="#000000";
+    steps = -(Math.floor(Math.random() * 2) + 1); // -1 → -2
+  }
+
+  movePlayer(steps);
+  updateScore();
+
+  currentTeam = currentTeam===1?2:1;
+  updateTurn();
+
+  let q = btn.closest(".question");
+  let next = q.nextElementSibling;
+  if(next){
+    setTimeout(()=>{
+      q.classList.remove("active");
+      next.classList.add("active");
+    },800);
+  }
+}
+
+function showWinner(){
+  if(score1>score2) alert("🏆 الفائز: "+team1);
+  else if(score2>score1) alert("🏆 الفائز: "+team2);
+  else alert("🤝 تعادل");
+}
+</script>
+
+</body>
+</html>
